@@ -14,5 +14,6 @@ module.exports = {
   // JSX の閉じタグを同じ行に配置
   bracketSameLine: false,
   // プラグインの追加
-  plugins: ["prettier-plugin-organize-imports"]
-}
+  plugins: ["prettier-plugin-organize-imports", "prettier-plugin-tailwindcss"],
+  tailWindConfig: "./tailwind.config.js"
+};
