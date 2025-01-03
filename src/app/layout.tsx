@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "reset-css";
+import AppFooter from "./components/(shared)/AppFooter";
+import AppHeader from "./components/(shared)/AppHeader";
 import AppProvider from "./components/AppProvider";
 import "./globals.css";
 
@@ -27,7 +29,9 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <AppHeader />
         <AppProvider>{children}</AppProvider>
+        <AppFooter />
       </body>
     </html>
   );
