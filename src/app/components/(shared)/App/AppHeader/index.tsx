@@ -6,7 +6,7 @@ const AppHeader: FC = () => {
   const currentDate = formatYYYYMMDDWithSlash(dayjs());
   return (
     <div>
-      <header className="fixed z-10 h-9 w-full shadow">
+      <header className="fixed z-10 h-9 w-full bg-stone-400 shadow">
         <div className="m-auto flex h-full w-11/12 items-center justify-between">
           <h1 className="text-xl font-medium">My Schedule</h1>
           <p className="text-xl font-medium">Current : {currentDate}</p>

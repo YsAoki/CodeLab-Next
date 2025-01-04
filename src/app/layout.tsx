@@ -28,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} bg-stone-400`}>
         <AppHeader />
         <AppProvider>{children}</AppProvider>
         <AppFooter />
