@@ -9,3 +9,5 @@ export type RadioAndCheckType = {
   label: string;
   value: string | number;
 };
+
+

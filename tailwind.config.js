@@ -1,33 +1,74 @@
 const { iconsPlugin, getIconCollections } = require("@egoist/tailwindcss-icons");
 
 module.exports = {
-  content: ["./src/**/*.{js,ts,jsx,tsx}"], // 使用するファイルのパスを正確に設定
+    darkMode: ["class"],
+    content: ["./src/**/*.{js,ts,jsx,tsx}"], // 使用するファイルのパスを正確に設定
   theme: {
-    extend: {
-      colors: {
-        background: {
-          DEFAULT: "#2a2a2f", // 少し明るくした深いダークグレー
-          secondary: "#3a3a40" // DEFAULT よりさらに明るめ
-        },
-        accent: {
-          neonBlue: "#4fc3f7", // 鮮やかなシアン
-          neonOrange: "#ff7043", // 鮮やかなオレンジ
-          neonPurple: "#7c4dff", // 鮮やかなパープル
-          neonPink: "#ff4081" // 鮮やかなピンク
-        },
-        text: {
-          light: "#e0e0e0", // 明るい灰色（テキスト用）
-          dark: "#ffffff" // 完全な白
-        },
-        danger: {
-          red: "#f44336" // 鮮烈な赤
-        }
-      }
-    }
+  	extend: {
+  		colors: {
+  			background: 'hsl(var(--background))',
+  			accent: {
+  				neonBlue: '#4fc3f7',
+  				neonOrange: '#ff7043',
+  				neonPurple: '#7c4dff',
+  				neonPink: '#ff4081',
+  				DEFAULT: 'hsl(var(--accent))',
+  				foreground: 'hsl(var(--accent-foreground))'
+  			},
+  			text: {
+  				light: '#e0e0e0',
+  				dark: '#ffffff'
+  			},
+  			danger: {
+  				red: '#f44336'
+  			},
+  			foreground: 'hsl(var(--foreground))',
+  			card: {
+  				DEFAULT: 'hsl(var(--card))',
+  				foreground: 'hsl(var(--card-foreground))'
+  			},
+  			popover: {
+  				DEFAULT: 'hsl(var(--popover))',
+  				foreground: 'hsl(var(--popover-foreground))'
+  			},
+  			primary: {
+  				DEFAULT: 'hsl(var(--primary))',
+  				foreground: 'hsl(var(--primary-foreground))'
+  			},
+  			secondary: {
+  				DEFAULT: 'hsl(var(--secondary))',
+  				foreground: 'hsl(var(--secondary-foreground))'
+  			},
+  			muted: {
+  				DEFAULT: 'hsl(var(--muted))',
+  				foreground: 'hsl(var(--muted-foreground))'
+  			},
+  			destructive: {
+  				DEFAULT: 'hsl(var(--destructive))',
+  				foreground: 'hsl(var(--destructive-foreground))'
+  			},
+  			border: 'hsl(var(--border))',
+  			input: 'hsl(var(--input))',
+  			ring: 'hsl(var(--ring))',
+  			chart: {
+  				'1': 'hsl(var(--chart-1))',
+  				'2': 'hsl(var(--chart-2))',
+  				'3': 'hsl(var(--chart-3))',
+  				'4': 'hsl(var(--chart-4))',
+  				'5': 'hsl(var(--chart-5))'
+  			}
+  		},
+  		borderRadius: {
+  			lg: 'var(--radius)',
+  			md: 'calc(var(--radius) - 2px)',
+  			sm: 'calc(var(--radius) - 4px)'
+  		}
+  	}
   },
   plugins: [
     iconsPlugin({
       collections: getIconCollections(["svg-spinners", "mdi", "lucide"])
-    })
-  ]
+    }),
+      require("tailwindcss-animate")
+]
 };

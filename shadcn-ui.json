@@ -1,0 +1,5 @@
+{
+  "components": "src/app/components/(shared)/ui/",
+  "theme": "default",
+  "rsc": false
+}
