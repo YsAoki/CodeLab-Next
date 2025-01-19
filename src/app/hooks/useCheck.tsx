@@ -1,6 +1,6 @@
 "use client";
 import { ChangeEvent, useCallback, useState } from "react";
-import { NOT_FOUND_INDEX } from "../constants/notFound";
+import { NOT_FOUND_INDEX } from "../constants/statusCode";
 
 export const useCheck = (defaultValue: string[] = []) => {
   const [check, setCheck] = useState(defaultValue);
