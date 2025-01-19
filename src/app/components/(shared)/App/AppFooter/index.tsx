@@ -3,9 +3,12 @@ import { FC } from "react";
 
 const AppFooter: FC = () => {
   return (
-    <footer className="bg-stone-400 py-2 shadow">
-      <p className={`h-6 text-center ${BACK_GROUND_PRIMARY}`}>-- PrivateMyNextApp --</p>
-    </footer>
+    <div>
+      <footer className="fixed bottom-0 flex h-10 w-full items-center justify-center bg-stone-400 shadow">
+        <p className={`text-center ${BACK_GROUND_PRIMARY}`}>-- PrivateMyNextApp --</p>
+      </footer>
+      <div className="h-10" />
+    </div>
   );
 };
 
