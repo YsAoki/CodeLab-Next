@@ -1,0 +1,10 @@
+{
+  "words": [
+    "Qiita",
+    "dayjs",
+  ],
+  "ignorePaths": [
+    "**/node_modules/**",
+    "**/dist/**"
+  ]
+}

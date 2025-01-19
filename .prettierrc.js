@@ -15,5 +15,5 @@ module.exports = {
   bracketSameLine: false,
   // プラグインの追加
   plugins: ["prettier-plugin-organize-imports", "prettier-plugin-tailwindcss"],
-  tailWindConfig: "./tailwind.config.js"
+  tailwindConfig: "./tailwind.config.js"
 };
