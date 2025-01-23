@@ -10,9 +10,14 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),{
+  ...compat.extends("next/core-web-vitals", "next/typescript"),
+  {
     files: ["**/*.{ts,tsx}"], // TypeScript ファイルのみ対象
-    plugins: ["import", "react-hooks", "unused-imports"], // プラグインを指定
+    plugins: {
+      import: require("eslint-plugin-import"),
+      "react-hooks": require("eslint-plugin-react-hooks"),
+      "unused-imports": require("eslint-plugin-unused-imports"),
+    },
     rules: {
       // import プラグインのルール
       "import/order": ["error", { groups: ["builtin", "external", "internal"] }],
@@ -30,11 +35,11 @@ const eslintConfig = [
           vars: "all",
           varsIgnorePattern: "^_",
           args: "after-used",
-          argsIgnorePattern: "^_"
-        }
-      ]
-    }
-  }
+          argsIgnorePattern: "^_",
+        },
+      ],
+    },
+  },
 ];
 
 export default eslintConfig;
