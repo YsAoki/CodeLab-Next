@@ -1,12 +1,15 @@
+import { FlatCompat } from "@eslint/eslintrc";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
+import eslintPluginImport from "eslint-plugin-import";
+import eslintPluginReactHooks from "eslint-plugin-react-hooks";
+import eslintPluginUnusedImports from "eslint-plugin-unused-imports";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const compat = new FlatCompat({
-  baseDirectory: __dirname,
+  baseDirectory: __dirname
 });
 
 const eslintConfig = [
@@ -14,9 +17,9 @@ const eslintConfig = [
   {
     files: ["**/*.{ts,tsx}"], // TypeScript ファイルのみ対象
     plugins: {
-      import: require("eslint-plugin-import"),
-      "react-hooks": require("eslint-plugin-react-hooks"),
-      "unused-imports": require("eslint-plugin-unused-imports"),
+      import: eslintPluginImport,
+      "react-hooks": eslintPluginReactHooks,
+      "unused-imports": eslintPluginUnusedImports,
     },
     rules: {
       // import プラグインのルール
@@ -35,11 +38,11 @@ const eslintConfig = [
           vars: "all",
           varsIgnorePattern: "^_",
           args: "after-used",
-          argsIgnorePattern: "^_",
-        },
-      ],
-    },
-  },
+          argsIgnorePattern: "^_"
+        }
+      ]
+    }
+  }
 ];
 
 export default eslintConfig;
