@@ -24,9 +24,14 @@ jobs:
           node-version: '20.x'
 
       - name: npm install, build, and test
+        env:
+          API_BASE_URL: ${{ secrets.API_BASE_URL }}
         run: |
+          # Install dependencies
           npm install
+          # Build the project (using API_BASE_URL)
           npm run build --if-present
+          # Run tests if available
           npm run test --if-present
 
       - name: Zip artifact for deployment
@@ -62,6 +67,13 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_9363859A7EDC4E37AE894B032820BA9E }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_8F20984EAC6D4272BE3EC32D2D2EF872 }}
 
+      - name: Set environment variables in Azure App Service
+        run: |
+          az webapp config appsettings set \
+            --name CodeLab \
+            --resource-group YourResourceGroupName \
+            --settings API_BASE_URL=${{ secrets.API_BASE_URL }}
+
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
@@ -69,4 +81,3 @@ jobs:
           app-name: 'CodeLab'
           slot-name: 'Production'
           package: .
-          
