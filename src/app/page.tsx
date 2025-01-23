@@ -6,7 +6,7 @@ import { serverFetchData } from "./utils/apiUtils";
 import { getEngineerYears } from "./utils/dateFormat";
 
 export default async function Home() {
-  const qiitaListItems = await serverFetchData<QiitaListItem[]>("./api/qiita/listItem");
+  const qiitaListItems = await serverFetchData<QiitaListItem[]>("/api/qiita/listItem");
 
   return (
     <div className="m-auto flex w-11/12 flex-col gap-2 py-2">
