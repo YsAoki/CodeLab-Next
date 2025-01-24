@@ -8,7 +8,7 @@ import TitleText from "../TitleText";
 
 type Props = QiitaListItem & ComponentPropsWithoutRef<"a">;
 
-const QiitaCard: FC<Props> = ({ id, url, title, tags, likeCount, createdAt, updatedAt, ...other }) => {
+const QiitaCard: FC<Props> = ({ url, title, tags, likeCount, createdAt, updatedAt, ...other }) => {
   return (
     <a href={url} {...other}>
       <div className="rounded-xl bg-gray-200">

@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const NotFound = () => {
@@ -11,9 +12,9 @@ const NotFound = () => {
       </p>
       <p className="md:text-2xl">
         トップページに{" "}
-        <a href="/" className="text-blue-500 underline" aria-label="トップページに戻る">
+        <Link href="/" className="text-blue-500 underline" aria-label="トップページに戻る">
           戻る
-        </a>
+        </Link>
       </p>
     </div>
   );

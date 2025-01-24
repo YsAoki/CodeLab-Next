@@ -1,6 +1,6 @@
 import { QIITA_GET_URL, QIITA_MY_USER_ID } from "@/app/config";
 import { QiitaListItem } from "@/app/types/apiResponse";
-import { QiitaArticle } from "@/app/types/qiita";
+import { QiitaArticle, QiitaTag } from "@/app/types/qiita";
 import axios from "axios";
 import { NextResponse } from "next/server";
 
@@ -22,7 +22,7 @@ export const GET = async (): Promise<NextResponse> => {
       id: item.id,
       url: item.url,
       title: item.title,
-      tags: item.tags.map((tag: any) => tag.name), // タグ名だけ抽出
+      tags: item.tags.map((tag: QiitaTag) => tag.name), // タグ名だけ抽出
       likeCount: item.likes_count,
       createdAt: item.created_at,
       updatedAt: item.updated_at
@@ -30,6 +30,7 @@ export const GET = async (): Promise<NextResponse> => {
 
     return NextResponse.json(processedData);
   } catch (err) {
+    console.error(err)
     const errorResponse: ErrorResponse = { error: "取得に失敗しました" };
     return NextResponse.json(errorResponse, { status: 500 });
   }

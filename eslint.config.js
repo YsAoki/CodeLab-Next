@@ -23,7 +23,7 @@ const eslintConfig = [
     },
     rules: {
       // import プラグインのルール
-      "import/order": ["error", { groups: ["builtin", "external", "internal"] }],
+      "import/order": "off",
       "import/no-unresolved": "error",
 
       // react-hooks プラグインのルール
