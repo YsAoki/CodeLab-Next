@@ -1,14 +1,3 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
-name: Build and deploy Node.js app to Azure Web App - CodeLab
-
-on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,14 +12,26 @@ jobs:
         with:
           node-version: '20.x'
 
+      - name: Debug environment variables
+        run: |
+          echo "DEBUG: Checking environment variables"
+          echo "API_BASE_URL: $API_BASE_URL"
+        env:
+          API_BASE_URL: ${{ secrets.API_BASE_URL }}
+
       - name: npm install, build, and test
         env:
           API_BASE_URL: ${{ secrets.API_BASE_URL }}
         run: |
+          # Debugging before the build
+          echo "DEBUG: Starting build process"
+          echo "API_BASE_URL: $API_BASE_URL"
           # Install dependencies
           npm install
           # Build the project (using API_BASE_URL)
           npm run build --if-present
+          # Debugging after the build
+          echo "DEBUG: Build process completed"
           # Run tests if available
           npm run test --if-present
 
@@ -59,7 +60,14 @@ jobs:
 
       - name: Unzip artifact for deployment
         run: unzip release.zip
-      
+
+      - name: Debug Azure environment variables
+        run: |
+          echo "DEBUG: Fetching Azure environment variables"
+          az webapp config appsettings list \
+            --name CodeLab \
+            --resource-group YourResourceGroupName
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
