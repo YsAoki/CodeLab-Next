@@ -9,24 +9,6 @@ type ErrorResponse = {
 };
 
 export const GET = async (): Promise<NextResponse> => {
-  // CI環境（GitHub Actions）ではモックデータを返す
-  if (process.env.CI) {
-    console.log("Skipping API call during CI build");
-    const mockData = [
-      {
-        id: "mock-id",
-        url: "https://example.com",
-        title: "Mock Title",
-        tags: ["mock-tag"],
-        likeCount: 0,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      },
-    ];
-    return NextResponse.json(mockData);
-  }
-
-  // 本番環境ではAPIを実際に呼び出す
   try {
     const response = await axios.get<QiitaArticle[]>(QIITA_GET_URL, {
       params: {
