@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read #This is required for actions/checkout
+      contents: read # This is required for actions/checkout
 
     steps:
       - uses: actions/checkout@v4
@@ -18,18 +18,12 @@ jobs:
       - name: Set up Node.js version
         uses: actions/setup-node@v3
         with:
-          node-version: '20.x'
-
-      - name: Debug environment variables
-        run: |
-          echo "DEBUG: Checking environment variables"
-          echo "API_BASE_URL: $API_BASE_URL"
-        env:
-          API_BASE_URL: ${{ vars.API_BASE_URL }}
+          node-version: "20.x"
 
       - name: npm install, build, and test
         env:
           API_BASE_URL: ${{ vars.API_BASE_URL }}
+          CI: true # CI環境フラグを追加
         run: |
           echo "DEBUG: Starting build process"
           echo "API_BASE_URL: $API_BASE_URL"
@@ -52,8 +46,8 @@ jobs:
     needs: build
 
     permissions:
-      id-token: write #This is required for requesting the JWT
-      contents: read #This is required for actions/checkout
+      id-token: write # This is required for requesting the JWT
+      contents: read # This is required for actions/checkout
 
     steps:
       - name: Download artifact from build job
@@ -64,27 +58,12 @@ jobs:
       - name: Unzip artifact for deployment
         run: unzip release.zip
 
-      - name: Debug Azure environment variables
-        run: |
-          echo "DEBUG: Fetching Azure environment variables"
-          az webapp config appsettings list \
-            --name CodeLab \
-            --resource-group YourResourceGroupName \
-            | grep API_BASE_URL
-
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_F822E075ED2742828648531E4A6C1E42 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_9363859A7EDC4E37AE894B032820BA9E }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_8F20984EAC6D4272BE3EC32D2D2EF872 }}
-
-      - name: Set environment variables in Azure App Service
-        run: |
-          az webapp config appsettings set \
-            --name CodeLab \
-            --resource-group YourResourceGroupName \
-            --settings API_BASE_URL=${{ vars.API_BASE_URL }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID }}
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
@@ -92,4 +71,4 @@ jobs:
         with:
           app-name: 'CodeLab'
           slot-name: 'Production'
-          package: './release.zip'
+          package: .
