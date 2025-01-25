@@ -1,3 +1,11 @@
+name: Build and deploy Node.js app to Azure Web App - CodeLab
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,16 +31,11 @@ jobs:
         env:
           API_BASE_URL: ${{ secrets.API_BASE_URL }}
         run: |
-          # Debugging before the build
           echo "DEBUG: Starting build process"
           echo "API_BASE_URL: $API_BASE_URL"
-          # Install dependencies
           npm install
-          # Build the project (using API_BASE_URL)
           npm run build --if-present
-          # Debugging after the build
           echo "DEBUG: Build process completed"
-          # Run tests if available
           npm run test --if-present
 
       - name: Zip artifact for deployment
@@ -60,7 +63,7 @@ jobs:
 
       - name: Unzip artifact for deployment
         run: unzip release.zip
-
+      
       - name: Debug Azure environment variables
         run: |
           echo "DEBUG: Fetching Azure environment variables"
@@ -75,17 +78,10 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_9363859A7EDC4E37AE894B032820BA9E }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_8F20984EAC6D4272BE3EC32D2D2EF872 }}
 
-      - name: Set environment variables in Azure App Service
-        run: |
-          az webapp config appsettings set \
-            --name CodeLab \
-            --resource-group YourResourceGroupName \
-            --settings API_BASE_URL=${{ secrets.API_BASE_URL }}
-
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'CodeLab'
           slot-name: 'Production'
-          package: .
+          package: 
